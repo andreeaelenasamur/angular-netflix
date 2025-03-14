@@ -2,6 +2,7 @@ export interface Movie {
   id: string;
   title: string;
   poster: string;
+  poster_path: string;
   backdrop: string;
   genre_ids: number[];
   original_language: string;

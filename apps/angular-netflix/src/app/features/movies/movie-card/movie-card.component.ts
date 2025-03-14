@@ -1,18 +1,24 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Movie } from '../models/movies.interface';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-movie-card',
-  imports: [
-    JsonPipe
-  ],
-  template: `<p>{{ movie() | json }}</p>`,
-  styleUrl: './movie-card.component.css',
+  imports: [ ],
+  templateUrl: './movie-card.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieCardComponent {
 
   movie = input.required<Movie>();
+  imageError = false;
+
+  getImageUrl() {
+    const baseUrl = 'https://image.tmdb.org/t/p/w500';
+    return this.imageError ? '/placeholder.svg' : `${baseUrl}/${this.movie().poster_path}`
+  }
+
+  setImageError(value: boolean): void {
+    this.imageError = value;
+  }
 
 }
