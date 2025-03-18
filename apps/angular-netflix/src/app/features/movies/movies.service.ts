@@ -23,6 +23,7 @@ export class MoviesService {
 
   constructor() {
     this.getMovies();
+    this.getTrending();
   }
 
   getMovieById( movieId: string ): Observable<MovieResponse> {
@@ -42,4 +43,23 @@ export class MoviesService {
       .subscribe();
   }
 
+  setRandomMovie() {
+    const trendingLength = this.trendingMovies().length;
+    const randomIndex = this._getRandomInt(0, trendingLength);
+    const randomMovie = this.trendingMovies()[randomIndex];
+    this.selectedMovie.set(randomMovie);
+  }
+
+  private _getRandomInt(min = 0, max = 50): number {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  getTrending(): void {
+    this._http.get<MovieResponse>(`${this._apiUrl}/trending/movie/day?api_key=${this._apiKey}`)
+      .pipe(
+        tap((movies: MovieResponse) => this.trendingMovies.set(movies.results)),
+        tap(() => this.setRandomMovie())
+      )
+      .subscribe();
+  }
 }
