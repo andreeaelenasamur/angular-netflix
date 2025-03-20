@@ -50,10 +50,6 @@ export class MoviesService {
     this.selectedMovie.set(randomMovie);
   }
 
-  private _getRandomInt(min = 0, max = 50): number {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
   getTrending(): void {
     this._http.get<MovieResponse>(`${this._apiUrl}/trending/movie/day?api_key=${this._apiKey}`)
       .pipe(
@@ -61,5 +57,13 @@ export class MoviesService {
         tap(() => this.setRandomMovie())
       )
       .subscribe();
+  }
+
+  searchMovie( query: string ): Observable<MovieResponse> {
+    return this._http.get<MovieResponse>(`${this._apiUrl}/search/movie?api_key=${this._apiKey}&query=${query}`);
+  }
+
+  private _getRandomInt(min = 0, max = 50): number {
+    return Math.floor(Math.random() * (max - min)) + min;
   }
 }
