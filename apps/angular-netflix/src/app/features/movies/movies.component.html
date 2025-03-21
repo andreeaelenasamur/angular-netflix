@@ -1,4 +1,4 @@
-<div class="grid grid-col-2 gap-4 px-4 mx-auto mt-6 max-w-7xl md:grid-cols-4 lg:grid-cols-6">
+<div class="grid grid-col-2 gap-4 px-4 mx-auto mt-6 max-w-7xl md:grid-cols-4 lg:grid-cols-4">
   @for (movie of movies(); track $index) {
 
     <a [routerLink]="['/movies', movie.id]">

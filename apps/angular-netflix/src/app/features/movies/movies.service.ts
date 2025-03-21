@@ -26,8 +26,8 @@ export class MoviesService {
     this.getTrending();
   }
 
-  getMovieById( movieId: string ): Observable<MovieResponse> {
-    return this._http.get<MovieResponse>(`${this._apiUrl}/movie/${movieId}?api_key=${this._apiKey}`);
+  getMovieById( movieId: string ): Observable<Movie> {
+    return this._http.get<Movie>(`${this._apiUrl}/movie/${movieId}?api_key=${this._apiKey}`);
   }
 
   getMovies(): void {

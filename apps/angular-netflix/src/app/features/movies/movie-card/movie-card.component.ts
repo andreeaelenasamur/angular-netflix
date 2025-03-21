@@ -14,7 +14,7 @@ export class MovieCardComponent {
 
   getImageUrl() {
     const baseUrl = 'https://image.tmdb.org/t/p/w500';
-    return this.imageError ? '/placeholder.svg' : `${baseUrl}/${this.movie().poster_path}`
+    return this.imageError ? './assets/poster-placeholder' : `${baseUrl}/${this.movie().poster_path}`
   }
 
   setImageError(value: boolean): void {
