@@ -1,13 +1,19 @@
 
 <!-- TODO: Add referred loading -->
 <app-movie-row [title]="'Popular Movies'" [movies]="trendingMovies()"></app-movie-row>
+@defer(on viewport) {
+  <div class="grid grid-col-2 gap-4 px-4 mx-auto mt-6 max-w-7xl md:grid-cols-4 lg:grid-cols-4">
+    @for (movie of movies(); track $index) {
 
-<div class="grid grid-col-2 gap-4 px-4 mx-auto mt-6 max-w-7xl md:grid-cols-4 lg:grid-cols-4">
-  @for (movie of movies(); track $index) {
+      <a [routerLink]="['/movies', movie.id]">
+        <app-movie-card [movie]="movie" class="w-full"></app-movie-card>
+      </a>
 
-    <a [routerLink]="['/movies', movie.id]">
-      <app-movie-card [movie]="movie" class="w-full"></app-movie-card>
-    </a>
-
-  }
-</div>
+    }
+  </div>
+}
+@placeholder {
+  <div class="flex justify-center p-4">
+    <div class="w-8 h-8 border-b-2 border-white rounded-full animate-spin"></div>
+  </div>
+}

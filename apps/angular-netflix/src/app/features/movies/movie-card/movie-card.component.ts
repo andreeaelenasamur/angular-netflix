@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Movie } from '../models/movies.interface';
+import { ImageService } from '../../../shared/image.service';
 
 @Component({
   selector: 'app-movie-card',
@@ -12,9 +13,11 @@ export class MovieCardComponent {
   movie = input.required<Movie>();
   imageError = false;
 
-  getImageUrl() {
-    const baseUrl = 'https://image.tmdb.org/t/p/w500';
-    return this.imageError ? './assets/poster-placeholder' : `${baseUrl}/${this.movie().poster_path}`
+  private readonly _imageService = inject(ImageService);
+
+  getImageUrl(): string {
+    const posterPath = this.movie().poster_path;
+    return this._imageService.getImageUrl(posterPath);
   }
 
   setImageError(value: boolean): void {
